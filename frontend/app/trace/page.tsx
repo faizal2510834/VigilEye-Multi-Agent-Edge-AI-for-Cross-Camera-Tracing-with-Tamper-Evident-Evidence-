@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { fetchQuery, fetchTrace } from '../../lib/api';
+import { fetchQuery, fetchTrace, API_URL, anchorEvidence } from '../../lib/api';
 
 export default function TracePage() {
   const [query, setQuery] = useState('');
@@ -12,12 +12,16 @@ export default function TracePage() {
   const [traceResult, setTraceResult] = useState<any>(null);
   const [error, setError] = useState('');
   
+  const [textStartCamera, setTextStartCamera] = useState('cam_1');
+  const [anchorLoading, setAnchorLoading] = useState(false);
+  const [anchorResult, setAnchorResult] = useState<any>(null);
+  
   const [tracks, setTracks] = useState<any[]>([]);
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
 
   useEffect(() => {
     // Load track gallery
-    fetch('http://localhost:8000/api/tracks')
+    fetch(`${API_URL}/api/tracks`)
       .then(r => r.json())
       .then(d => setTracks(d.tracks || []))
       .catch(e => console.error(e));
@@ -38,7 +42,7 @@ export default function TracePage() {
       let tRes;
       if (selectedTrack) {
         // Tracing a selected track directly
-        const res = await fetch('http://localhost:8000/api/trace', {
+        const res = await fetch(`${API_URL}/api/trace`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
@@ -55,13 +59,27 @@ export default function TracePage() {
         setParsed(qRes.parsed);
         const qEmb = qRes.query_embedding;
         if (!qEmb) throw new Error("No query embedding returned from Intent parser");
-        tRes = await fetchTrace(qEmb, 'cam_1', mode);
+        tRes = await fetchTrace(qEmb, textStartCamera, mode);
       }
       setTraceResult(tRes);
+      setAnchorResult(null);
     } catch (err: any) {
       setError(err.message || 'Error occurred');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAnchor = async () => {
+    if (!traceResult || !traceResult.trail) return;
+    setAnchorLoading(true);
+    try {
+      const res = await anchorEvidence(`case_${Date.now()}`, traceResult.trail);
+      setAnchorResult(res);
+    } catch (err: any) {
+      setError(err.message || 'Error anchoring evidence');
+    } finally {
+      setAnchorLoading(false);
     }
   };
 
@@ -88,7 +106,6 @@ export default function TracePage() {
                   }}
                 >
                   <div style={{ fontSize: '12px' }}>{t.track_id}</div>
-                  <div style={{ fontSize: '10px', color: 'var(--text-secondary)' }}>{t.dominant_color}</div>
                 </div>
               ))}
               {tracks.length === 0 && <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Loading tracks...</div>}
@@ -100,13 +117,23 @@ export default function TracePage() {
           </div>
           <div>
             <label style={{ display: 'block', marginBottom: '5px' }}>Natural Language Query</label>
-            <input 
-              type="text" 
-              value={query} 
-              onChange={(e) => { setQuery(e.target.value); setSelectedTrack(null); }} 
-              placeholder="e.g. Find the blue shirt guy near gate 2" 
-              required
-            />
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <input 
+                type="text" 
+                value={query} 
+                onChange={(e) => { setQuery(e.target.value); setSelectedTrack(null); }} 
+                placeholder="e.g. Find the blue shirt guy near gate 2" 
+                required={!selectedTrack}
+                style={{ flex: 1 }}
+              />
+              {!selectedTrack && (
+                <select value={textStartCamera} onChange={(e) => setTextStartCamera(e.target.value)} style={{ padding: '8px', borderRadius: '4px', backgroundColor: '#111', color: '#fff', border: '1px solid var(--border)' }}>
+                  <option value="cam_1">cam_1</option>
+                  <option value="cam_2">cam_2</option>
+                  <option value="cam_3">cam_3</option>
+                </select>
+              )}
+            </div>
           </div>
           <div>
             <label style={{ display: 'block', marginBottom: '5px' }}>Audit Justification (Required)</label>
@@ -185,6 +212,29 @@ export default function TracePage() {
                   <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{t.explanation}</div>
                 </div>
               ))}
+            </div>
+            
+            <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid var(--border)' }}>
+              <button 
+                onClick={handleAnchor} 
+                disabled={anchorLoading} 
+                style={{ width: '100%', backgroundColor: anchorResult ? 'var(--success)' : 'var(--accent)' }}
+              >
+                {anchorLoading ? 'Anchoring...' : anchorResult ? 'Anchored to Blockchain ✓' : 'Anchor Evidence to Blockchain'}
+              </button>
+              
+              {anchorResult && (
+                <div style={{ marginTop: '15px', padding: '15px', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '4px', fontSize: '12px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: '5px' }}>
+                    <span style={{ color: 'var(--text-secondary)' }}>Tx Hash:</span>
+                    <span style={{ fontFamily: 'monospace', wordBreak: 'break-all' }}>{anchorResult.tx_hash}</span>
+                    <span style={{ color: 'var(--text-secondary)' }}>Merkle Root:</span>
+                    <span style={{ fontFamily: 'monospace', wordBreak: 'break-all' }}>{anchorResult.merkle_root}</span>
+                    <span style={{ color: 'var(--text-secondary)' }}>Block:</span>
+                    <span>{anchorResult.block_number}</span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

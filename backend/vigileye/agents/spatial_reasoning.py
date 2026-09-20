@@ -18,17 +18,27 @@ class SpatialReasoningAgent:
             "brute_force": {"inference_calls": 0, "comparisons": 0}
         }
 
-    async def execute_trace(self, query_embedding, start_camera, start_time, mode="handoff"):
+    async def execute_trace(self, query_embedding, start_camera, start_time, mode="handoff", query_track_id=None):
         self.reset_metrics()
         if mode == "handoff":
-            return await self._trace_handoff(query_embedding, start_camera, start_time)
+            return await self._trace_handoff(query_embedding, start_camera, start_time, query_track_id)
         else:
-            return await self._trace_brute_force(query_embedding)
+            return await self._trace_brute_force(query_embedding, query_track_id)
 
-    async def _trace_brute_force(self, query_embedding):
+    async def _trace_brute_force(self, query_embedding, query_track_id=None):
         await bus.publish("AGENT_LOG", {"agent": "Spatial", "msg": "Starting BRUTE FORCE search across all cameras."})
         trail = []
+        
+        q_base = None
+        if query_track_id:
+            q_base = "_".join(query_track_id.split("_")[:3])
+            
         for track in TRACKS_DB:
+            if q_base:
+                c_base = "_".join(track.get("track_id", "").split("_")[:3])
+                if q_base == c_base:
+                    continue
+                    
             self.metrics["brute_force"]["inference_calls"] += 1
             self.metrics["brute_force"]["comparisons"] += 1
             sim = cosine_similarity(query_embedding, track["embedding"])
@@ -46,13 +56,13 @@ class SpatialReasoningAgent:
         trail.sort(key=lambda x: x["timestamp"])
         return trail, self.metrics["brute_force"]
 
-    async def _trace_handoff(self, query_embedding, start_camera, start_time):
+    async def _trace_handoff(self, query_embedding, start_camera, start_time, query_track_id=None):
         await bus.publish("AGENT_LOG", {"agent": "Spatial", "msg": f"Starting PREDICTIVE HANDOFF trace from {start_camera}."})
         trail = []
         
         # Initial search in start camera to find the baseline track
         cam_tracks = get_tracks_by_camera(start_camera)
-        matches = search_embeddings(query_embedding, cam_tracks, threshold=REID_THRESHOLD)
+        matches = search_embeddings(query_embedding, cam_tracks, threshold=REID_THRESHOLD, query_track_id=query_track_id)
         self.metrics["handoff"]["inference_calls"] += len(cam_tracks)
         self.metrics["handoff"]["comparisons"] += len(cam_tracks)
         
@@ -98,7 +108,7 @@ class SpatialReasoningAgent:
                 self.metrics["handoff"]["inference_calls"] += len(candidates)
                 self.metrics["handoff"]["comparisons"] += len(candidates)
                 
-                n_matches = search_embeddings(query_embedding, candidates, threshold=REID_THRESHOLD)
+                n_matches = search_embeddings(query_embedding, candidates, threshold=REID_THRESHOLD, query_track_id=query_track_id)
                 if n_matches and n_matches[0]["similarity"] > best_sim:
                     best_sim = n_matches[0]["similarity"]
                     best_next_match = n_matches[0]["track"]

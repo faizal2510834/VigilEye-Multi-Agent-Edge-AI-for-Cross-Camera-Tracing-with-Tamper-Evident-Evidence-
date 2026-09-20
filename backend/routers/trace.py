@@ -30,7 +30,8 @@ async def do_trace(request: TraceRequest):
         query_embedding=emb, 
         start_camera=request.start_camera, 
         start_time=request.start_time,
-        mode=request.mode
+        mode=request.mode,
+        query_track_id=request.track_id
     )
     
     return {

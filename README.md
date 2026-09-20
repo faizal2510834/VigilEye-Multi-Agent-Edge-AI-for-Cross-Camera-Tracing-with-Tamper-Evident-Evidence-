@@ -20,7 +20,7 @@ When a target vanishes from Camera A, the Spatial Agent uses a learned topologic
 >
 > *(Qualitative Note: All 4 disagreements involved brute-force selecting a match with a physically impossible negative transit time, suggesting these queries have no true cross-camera partner in this dataset and brute-force was picking noise; handoff correctly did not return a match (or returned None) in these cases.)*
 >
-> *(Dataset Caveat: Measured on a small dataset, N=24 tracks across 3 near-adjacent segments of one video, representing ~7 independent people with repeated crops).*
+> *(Dataset Caveat: Measured on a small dataset, 12 track segments across 3 cameras).*
 
 ---
 
@@ -61,7 +61,7 @@ Read the full details in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [docs/
 
 1. **Edge Perception Agents:** Quantized YOLOv8 + OpenCLIP + HSV running on camera nodes (INT8 quantization real; live edge deployment simulated via local process).
 2. **Spatial Reasoning Agent:** Orchestrates predictive wake-ups and manages the adjacency graph.
-3. **Intent Parsing Agent:** Converts NLP to JSON using regex (fallback) or Azure OpenAI.
+3. **Intent Parsing Agent:** Converts NLP to JSON using regex (fallback) or Azure OpenAI. *(Limitation Note: Text queries currently pad HSV features with zeros, meaning they search purely on CLIP embeddings and cannot accurately match colors like "red shirt".)*
 4. **Crypto Audit Agent:** Computes a Merkle root and hash chain; on-chain anchoring is executed via web3.py interacting with a local Hardhat node.
 
 ---
@@ -83,12 +83,13 @@ If you want to run the full FastAPI backend + Hardhat network tests:
 make setup       # Install pip and npm dependencies
 make chain       # Start the local Hardhat node (run this in a separate terminal first!)
 make deploy      # Deploy the Smart Contract to the local node
+make backend     # Start the FastAPI backend via uvicorn (run this in a separate terminal!)
 make smoke       # Run the backend pytest smoke test
-make tamper-test # Demonstrate the cryptographic Merkle verification failing on altered data
+make tamper-test # Demonstrate the cryptographic Merkle verification failing on altered data (Real Tamper Proof)
 make benchmark   # Output the metrics comparing brute force vs handoffs
 ```
 
-*(Note: `docker-compose up` has been removed as it requires a fully stable Hardhat node compilation which varies significantly by OS and node version).*
+*(Note: The Evidence UI page features a "Simulate Tamper" button for demonstration purposes only. The true live cryptographic tamper detection is demonstrated by `make tamper-test` and `scripts/verify_evidence.py`.)*
 
 ---
 *Built for ORION-PS-04: Autonomous Multi-Agent AI & Edge Inference Systems*

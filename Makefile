@@ -17,6 +17,10 @@ deploy:
 	@echo "Deploying contract to local node..."
 	cd contracts && npx hardhat run scripts/deploy.ts --network localhost
 
+backend:
+	@echo "Starting FastAPI backend..."
+	cd backend && uvicorn main:app --host 0.0.0.0 --port 8000
+
 demo:
 	@echo "Building and running static Next.js demo..."
 	cd frontend && npm run build && npm start

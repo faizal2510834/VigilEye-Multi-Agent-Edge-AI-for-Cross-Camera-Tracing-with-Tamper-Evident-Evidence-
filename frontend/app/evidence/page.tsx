@@ -64,7 +64,7 @@ export default function EvidencePage() {
                 {tampered ? 'Verification Failed: Tampering Detected' : 'Evidence Verified on Chain'}
               </h3>
               {!tampered && (
-                <button onClick={handleTamper} style={{ backgroundColor: 'var(--warning)' }}>Simulate Tamper</button>
+                <button onClick={handleTamper} style={{ backgroundColor: 'var(--warning)' }}>Simulate Tamper (UI Only)</button>
               )}
             </div>
             

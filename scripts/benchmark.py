@@ -26,18 +26,20 @@ async def run_benchmark():
     agreement_detail = []
     agreements = 0
     
-    total_queries = len(tracks)
+    total_tracks_db = len(tracks)
+    queries = [t for t in tracks if t['track_id'].endswith('_early')]
+    total_queries = len(queries)
     
-    print(f"Running benchmarks on {total_queries} tracks...")
+    print(f"Running benchmarks on {total_queries} queries (from {total_tracks_db} total segments)...")
     
-    for t in tracks:
+    for t in queries:
         query_emb = t['embedding']
         cam_id = t['camera_id']
         start_ts = t['first_ts']
         query_track_id = t['track_id']
         
         # 1. Run full brute force trace (just for metrics)
-        bf_trail, bf_metrics = await spatial_agent.execute_trace(query_emb, cam_id, start_ts, mode="brute_force")
+        bf_trail, bf_metrics = await spatial_agent.execute_trace(query_emb, cam_id, start_ts, mode="brute_force", query_track_id=query_track_id)
         brute_force_inference_calls += bf_metrics.get("inference_calls", 0)
         brute_force_comparisons += bf_metrics.get("comparisons", 0)
         
@@ -59,7 +61,7 @@ async def run_benchmark():
             bf_top = max(bf_matches, key=lambda x: x["similarity"])
             
         # 3. Run Handoff
-        ho_trail, ho_metrics = await spatial_agent.execute_trace(query_emb, cam_id, start_ts, mode="handoff")
+        ho_trail, ho_metrics = await spatial_agent.execute_trace(query_emb, cam_id, start_ts, mode="handoff", query_track_id=query_track_id)
         handoff_inference_calls += ho_metrics.get("inference_calls", 0)
         handoff_comparisons += ho_metrics.get("comparisons", 0)
         
@@ -126,7 +128,7 @@ async def run_benchmark():
     ho_bytes = handoff_inference_calls * bytes_per_embedding
         
     handoff_savings = {
-        "dataset": "Real pedestrian video (split into 3 cameras, 24 tracks representing ~7 independent people)",
+        "dataset": f"Real pedestrian video (split into 3 cameras, {total_queries} independent query tracks)",
         "total_cameras": 3,
         "query_count": total_queries,
         "raw_agreements": agreements,
@@ -137,7 +139,7 @@ async def run_benchmark():
         "handoff_bytes_transferred": ho_bytes,
         "savings_percentage": savings_percentage,
         "hardware": "Local CPU Demo",
-        "qualitative_note": "All 4 disagreements involved brute-force selecting a match with a physically impossible negative transit time, suggesting these queries have no true cross-camera partner in this dataset and brute-force was picking noise; handoff correctly did not return a match (or returned None) in these cases."
+        "qualitative_note": "Qualitative details on disagreements: if any occurred, brute-force likely matched noise outside the predicted space-time window."
     }
     
     with open(os.path.join(benchmarks_dir, "handoff_results.json"), "w") as f:

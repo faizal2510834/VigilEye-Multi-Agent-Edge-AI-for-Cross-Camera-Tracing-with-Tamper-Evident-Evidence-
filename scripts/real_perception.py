@@ -238,7 +238,7 @@ def main():
             gid = feats[0]["global_id"]
             track_splits[gid][split_name].append({
                 "cam_id": feats[0]["cam_id"],
-                "tid_str": tid_str,
+                "tid_str": f"{tid_str}_{split_name}",
                 "emb": avg_fused,
                 "class": feats[0]["class"],
                 "timestamps": [f["t"] for f in split_feats],

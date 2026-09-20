@@ -14,71 +14,71 @@
   "top_10_cross_camera_pairs": [
     {
       "pair": [
-        "cam_3_18",
-        "cam_2_18"
+        "cam_3_18_early",
+        "cam_2_18_late"
       ],
       "similarity": 0.7896636629007646
     },
     {
       "pair": [
-        "cam_2_18",
-        "cam_3_18"
+        "cam_2_18_late",
+        "cam_3_18_late"
       ],
       "similarity": 0.7615535570585156
     },
     {
       "pair": [
-        "cam_1_6",
-        "cam_2_14"
+        "cam_1_6_late",
+        "cam_2_14_early"
       ],
       "similarity": 0.6237070175502697
     },
     {
       "pair": [
-        "cam_3_14",
-        "cam_2_18"
+        "cam_3_14_late",
+        "cam_2_18_late"
       ],
       "similarity": 0.5821283538693242
     },
     {
       "pair": [
-        "cam_3_14",
-        "cam_2_18"
+        "cam_3_14_early",
+        "cam_2_18_late"
       ],
       "similarity": 0.5794920937079114
     },
     {
       "pair": [
-        "cam_2_14",
-        "cam_3_23"
+        "cam_2_14_early",
+        "cam_3_23_early"
       ],
       "similarity": 0.5495365929370706
     },
     {
       "pair": [
-        "cam_2_15",
-        "cam_3_23"
+        "cam_2_15_late",
+        "cam_3_23_late"
       ],
       "similarity": 0.5069652620570261
     },
     {
       "pair": [
-        "cam_2_6",
-        "cam_1_6"
+        "cam_2_6_early",
+        "cam_1_6_late"
       ],
       "similarity": 0.4891369706680367
     },
     {
       "pair": [
-        "cam_2_4",
-        "cam_3_14"
+        "cam_2_4_late",
+        "cam_3_14_early"
       ],
       "similarity": 0.47266696536606834
     },
     {
       "pair": [
-        "cam_3_15",
-        "cam_2_15"
+        "cam_3_15_early",
+        "cam_2_15_late"
       ],
       "similarity": 0.47233638820222934
     }

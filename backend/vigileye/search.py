@@ -9,13 +9,23 @@ def cosine_similarity(vec1, vec2):
         return 0.0
     return float(dot / norm)
 
-def search_embeddings(query_embedding, track_candidates, threshold=0.75):
+def search_embeddings(query_embedding, track_candidates, threshold=0.75, query_track_id=None):
     """
     Search for matches in track_candidates above threshold.
     track_candidates is a list of dicts with 'embedding' key.
     """
     results = []
+    
+    q_base = None
+    if query_track_id:
+        q_base = "_".join(query_track_id.split("_")[:3])
+        
     for track in track_candidates:
+        if q_base:
+            c_base = "_".join(track.get("track_id", "").split("_")[:3])
+            if q_base == c_base:
+                continue
+                
         sim = cosine_similarity(query_embedding, track["embedding"])
         if sim >= threshold:
             results.append({
