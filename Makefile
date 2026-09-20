@@ -6,7 +6,7 @@ setup:
 	@echo "Setting up Node frontend..."
 	cd frontend && npm install
 	@echo "Setting up Hardhat contracts..."
-	cd contracts && npm install
+	cd contracts && npm install --legacy-peer-deps
 	@echo "Setup complete!"
 
 chain:
