@@ -1,0 +1,424 @@
+[
+  {
+    "query_track": "cam_1_2",
+    "query_camera": "cam_1",
+    "bf_top": {
+      "track_id": "cam_2_14",
+      "camera_id": "cam_2",
+      "timestamp": 28.25,
+      "similarity": 0.3264
+    },
+    "ho_top": {
+      "track_id": "cam_2_14",
+      "camera_id": "cam_2",
+      "timestamp": 28.25,
+      "similarity": 0.3264
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_1_2",
+    "query_camera": "cam_1",
+    "bf_top": {
+      "track_id": "cam_2_4",
+      "camera_id": "cam_2",
+      "timestamp": 18.583333333333332,
+      "similarity": 0.43
+    },
+    "ho_top": {
+      "track_id": "cam_2_4",
+      "camera_id": "cam_2",
+      "timestamp": 18.583333333333332,
+      "similarity": 0.43
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_1_4",
+    "query_camera": "cam_1",
+    "bf_top": {
+      "track_id": "cam_2_15",
+      "camera_id": "cam_2",
+      "timestamp": 28.583333333333332,
+      "similarity": 0.3794
+    },
+    "ho_top": {
+      "track_id": "cam_2_15",
+      "camera_id": "cam_2",
+      "timestamp": 28.583333333333332,
+      "similarity": 0.3794
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_2_4",
+    "query_camera": "cam_2",
+    "bf_top": {
+      "track_id": "cam_1_4",
+      "camera_id": "cam_1",
+      "timestamp": 15.75,
+      "similarity": 0.3292
+    },
+    "ho_top": {
+      "track_id": "cam_1_4",
+      "camera_id": "cam_1",
+      "timestamp": 15.75,
+      "similarity": 0.3292
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_1_4",
+    "query_camera": "cam_1",
+    "bf_top": {
+      "track_id": "cam_3_23",
+      "camera_id": "cam_3",
+      "timestamp": 43.583333333333336,
+      "similarity": 0.4621
+    },
+    "ho_top": {
+      "track_id": "cam_3_23",
+      "camera_id": "cam_3",
+      "timestamp": 43.583333333333336,
+      "similarity": 0.4621
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_2_4",
+    "query_camera": "cam_2",
+    "bf_top": {
+      "track_id": "cam_3_14",
+      "camera_id": "cam_3",
+      "timestamp": 33.166666666666664,
+      "similarity": 0.4727
+    },
+    "ho_top": {
+      "track_id": "cam_3_14",
+      "camera_id": "cam_3",
+      "timestamp": 33.166666666666664,
+      "similarity": 0.4727
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_1_6",
+    "query_camera": "cam_1",
+    "bf_top": {
+      "track_id": "cam_2_6",
+      "camera_id": "cam_2",
+      "timestamp": 16.583333333333332,
+      "similarity": 0.1904
+    },
+    "ho_top": {
+      "track_id": "cam_2_6",
+      "camera_id": "cam_2",
+      "timestamp": 16.583333333333332,
+      "similarity": 0.1904
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_2_6",
+    "query_camera": "cam_2",
+    "bf_top": {
+      "track_id": "cam_1_6",
+      "camera_id": "cam_1",
+      "timestamp": 15.833333333333334,
+      "similarity": 0.4891
+    },
+    "ho_top": {
+      "track_id": "cam_1_6",
+      "camera_id": "cam_1",
+      "timestamp": 15.833333333333334,
+      "similarity": 0.4891
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_1_6",
+    "query_camera": "cam_1",
+    "bf_top": {
+      "track_id": "cam_2_14",
+      "camera_id": "cam_2",
+      "timestamp": 28.25,
+      "similarity": 0.6237
+    },
+    "ho_top": {
+      "track_id": "cam_2_14",
+      "camera_id": "cam_2",
+      "timestamp": 28.25,
+      "similarity": 0.6237
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_2_6",
+    "query_camera": "cam_2",
+    "bf_top": {
+      "track_id": "cam_3_14",
+      "camera_id": "cam_3",
+      "timestamp": 33.166666666666664,
+      "similarity": 0.2849
+    },
+    "ho_top": {
+      "track_id": "cam_3_14",
+      "camera_id": "cam_3",
+      "timestamp": 33.166666666666664,
+      "similarity": 0.2849
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_2_14",
+    "query_camera": "cam_2",
+    "bf_top": {
+      "track_id": "cam_1_6",
+      "camera_id": "cam_1",
+      "timestamp": 15.833333333333334,
+      "similarity": 0.6237
+    },
+    "ho_top": {
+      "track_id": "cam_3_23",
+      "camera_id": "cam_3",
+      "timestamp": 43.583333333333336,
+      "similarity": 0.5495
+    },
+    "agrees": false,
+    "category": "c_no_real_match_bf_picked_noise"
+  },
+  {
+    "query_track": "cam_3_14",
+    "query_camera": "cam_3",
+    "bf_top": {
+      "track_id": "cam_2_18",
+      "camera_id": "cam_2",
+      "timestamp": 31.25,
+      "similarity": 0.5795
+    },
+    "ho_top": {
+      "track_id": "cam_2_18",
+      "camera_id": "cam_2",
+      "timestamp": 31.25,
+      "similarity": 0.5795
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_2_14",
+    "query_camera": "cam_2",
+    "bf_top": {
+      "track_id": "cam_3_14",
+      "camera_id": "cam_3",
+      "timestamp": 33.166666666666664,
+      "similarity": 0.4331
+    },
+    "ho_top": {
+      "track_id": "cam_3_14",
+      "camera_id": "cam_3",
+      "timestamp": 33.166666666666664,
+      "similarity": 0.4331
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_3_14",
+    "query_camera": "cam_3",
+    "bf_top": {
+      "track_id": "cam_2_18",
+      "camera_id": "cam_2",
+      "timestamp": 31.25,
+      "similarity": 0.5821
+    },
+    "ho_top": {
+      "track_id": "cam_2_18",
+      "camera_id": "cam_2",
+      "timestamp": 31.25,
+      "similarity": 0.5821
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_2_15",
+    "query_camera": "cam_2",
+    "bf_top": {
+      "track_id": "cam_1_4",
+      "camera_id": "cam_1",
+      "timestamp": 15.75,
+      "similarity": 0.4225
+    },
+    "ho_top": {
+      "track_id": "cam_3_23",
+      "camera_id": "cam_3",
+      "timestamp": 43.583333333333336,
+      "similarity": 0.4187
+    },
+    "agrees": false,
+    "category": "c_no_real_match_bf_picked_noise"
+  },
+  {
+    "query_track": "cam_3_15",
+    "query_camera": "cam_3",
+    "bf_top": {
+      "track_id": "cam_2_15",
+      "camera_id": "cam_2",
+      "timestamp": 30.916666666666668,
+      "similarity": 0.4723
+    },
+    "ho_top": {
+      "track_id": "cam_2_15",
+      "camera_id": "cam_2",
+      "timestamp": 30.916666666666668,
+      "similarity": 0.4723
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_2_15",
+    "query_camera": "cam_2",
+    "bf_top": {
+      "track_id": "cam_3_23",
+      "camera_id": "cam_3",
+      "timestamp": 45.0,
+      "similarity": 0.507
+    },
+    "ho_top": {
+      "track_id": "cam_3_23",
+      "camera_id": "cam_3",
+      "timestamp": 45.0,
+      "similarity": 0.507
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_3_15",
+    "query_camera": "cam_3",
+    "bf_top": {
+      "track_id": "cam_2_15",
+      "camera_id": "cam_2",
+      "timestamp": 30.916666666666668,
+      "similarity": 0.2451
+    },
+    "ho_top": {
+      "track_id": "cam_2_15",
+      "camera_id": "cam_2",
+      "timestamp": 30.916666666666668,
+      "similarity": 0.2451
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_2_18",
+    "query_camera": "cam_2",
+    "bf_top": {
+      "track_id": "cam_3_18",
+      "camera_id": "cam_3",
+      "timestamp": 33.75,
+      "similarity": 0.4323
+    },
+    "ho_top": {
+      "track_id": "cam_3_18",
+      "camera_id": "cam_3",
+      "timestamp": 33.75,
+      "similarity": 0.4323
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_3_18",
+    "query_camera": "cam_3",
+    "bf_top": {
+      "track_id": "cam_2_18",
+      "camera_id": "cam_2",
+      "timestamp": 31.25,
+      "similarity": 0.7897
+    },
+    "ho_top": {
+      "track_id": "cam_2_18",
+      "camera_id": "cam_2",
+      "timestamp": 31.25,
+      "similarity": 0.7897
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_2_18",
+    "query_camera": "cam_2",
+    "bf_top": {
+      "track_id": "cam_3_18",
+      "camera_id": "cam_3",
+      "timestamp": 33.166666666666664,
+      "similarity": 0.7897
+    },
+    "ho_top": {
+      "track_id": "cam_3_18",
+      "camera_id": "cam_3",
+      "timestamp": 33.166666666666664,
+      "similarity": 0.7897
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_3_18",
+    "query_camera": "cam_3",
+    "bf_top": {
+      "track_id": "cam_2_18",
+      "camera_id": "cam_2",
+      "timestamp": 31.25,
+      "similarity": 0.7616
+    },
+    "ho_top": {
+      "track_id": "cam_2_18",
+      "camera_id": "cam_2",
+      "timestamp": 31.25,
+      "similarity": 0.7616
+    },
+    "agrees": true,
+    "category": "agreed"
+  },
+  {
+    "query_track": "cam_3_23",
+    "query_camera": "cam_3",
+    "bf_top": {
+      "track_id": "cam_2_14",
+      "camera_id": "cam_2",
+      "timestamp": 28.25,
+      "similarity": 0.5495
+    },
+    "ho_top": null,
+    "agrees": false,
+    "category": "c_no_real_match_bf_picked_noise"
+  },
+  {
+    "query_track": "cam_3_23",
+    "query_camera": "cam_3",
+    "bf_top": {
+      "track_id": "cam_2_15",
+      "camera_id": "cam_2",
+      "timestamp": 30.916666666666668,
+      "similarity": 0.507
+    },
+    "ho_top": null,
+    "agrees": false,
+    "category": "c_no_real_match_bf_picked_noise"
+  }
+]

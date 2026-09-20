@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+pydantic
+pydantic-settings
+numpy
+opencv-python-headless
+onnxruntime
+web3
+requests
+pytest
+python-dotenv
+ultralytics
+torch
+torchvision

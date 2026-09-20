@@ -1,0 +1,14 @@
+{
+  "dataset": "Real pedestrian video (split into 3 cameras, 24 tracks representing ~7 independent people)",
+  "total_cameras": 3,
+  "query_count": 24,
+  "raw_agreements": 20,
+  "raw_agreement_rate_percent": 83.3,
+  "brute_force_inference_calls": 576,
+  "brute_force_bytes_transferred": 2359296,
+  "handoff_inference_calls": 483,
+  "handoff_bytes_transferred": 1978368,
+  "savings_percentage": 16.1,
+  "hardware": "Local CPU Demo",
+  "qualitative_note": "All 4 disagreements involved brute-force selecting a match with a physically impossible negative transit time, suggesting these queries have no true cross-camera partner in this dataset and brute-force was picking noise; handoff correctly did not return a match (or returned None) in these cases."
+}

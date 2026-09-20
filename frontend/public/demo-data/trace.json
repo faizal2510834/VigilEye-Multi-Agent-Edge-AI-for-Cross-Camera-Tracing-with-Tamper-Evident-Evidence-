@@ -1,0 +1,30 @@
+{
+  "mode": "handoff",
+  "trail": [
+    {
+      "camera_id": "cam_1",
+      "track_id": "cam_1_1",
+      "timestamp": 2.5,
+      "confidence": 98.4,
+      "explanation": "Initial match: similarity 0.98. Confidence 98.4%"
+    },
+    {
+      "camera_id": "cam_2",
+      "track_id": "cam_2_1",
+      "timestamp": 14.1,
+      "confidence": 91.2,
+      "explanation": "Predictive match: similarity 0.91, transit 11.6s within expected window. Confidence 91.2%"
+    },
+    {
+      "camera_id": "cam_3",
+      "track_id": "cam_3_2",
+      "timestamp": 28.5,
+      "confidence": 88.7,
+      "explanation": "Predictive match: similarity 0.89, transit 14.4s within expected window. Confidence 88.7%"
+    }
+  ],
+  "metrics": {
+    "inference_calls": 52,
+    "comparisons": 52
+  }
+}

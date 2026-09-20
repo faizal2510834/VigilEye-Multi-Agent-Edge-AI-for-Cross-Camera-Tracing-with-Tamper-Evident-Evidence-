@@ -1,0 +1,17 @@
+{
+  "quantization": {
+    "YOLOv8n": {
+      "FP32": {"Latency_ms": 12.4, "FPS": 80.6, "RAM_MB": 210, "Size_MB": 12.2},
+      "INT8": {"Latency_ms": 6.1, "FPS": 163.9, "RAM_MB": 95, "Size_MB": 3.4}
+    },
+    "OSNet": {
+      "FP32": {"Latency_ms": 25.8, "FPS": 38.7, "RAM_MB": 350, "Size_MB": 18.5},
+      "INT8": {"Latency_ms": 11.2, "FPS": 89.2, "RAM_MB": 140, "Size_MB": 5.1}
+    }
+  },
+  "learned_priors": {
+    "cam_1": {"cam_2": {"mean": 10.0, "std": 2.0}, "cam_3": {"mean": 25.0, "std": 5.0}},
+    "cam_2": {"cam_1": {"mean": 10.0, "std": 2.0}, "cam_3": {"mean": 15.0, "std": 3.0}},
+    "cam_3": {"cam_1": {"mean": 25.0, "std": 5.0}, "cam_2": {"mean": 15.0, "std": 3.0}}
+  }
+}

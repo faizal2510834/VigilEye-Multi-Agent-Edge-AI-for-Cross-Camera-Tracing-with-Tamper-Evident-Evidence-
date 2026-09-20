@@ -1,0 +1,14 @@
+{
+  "history": [
+    {"topic": "AGENT_LOG", "message": {"agent": "Intent", "msg": "Parsed query to structured format"}},
+    {"topic": "AGENT_LOG", "message": {"agent": "CryptoAudit", "msg": "Audit logged query. Hash: a4f8b2c1..."}},
+    {"topic": "AGENT_LOG", "message": {"agent": "Spatial", "msg": "Starting PREDICTIVE HANDOFF trace from cam_1."}},
+    {"topic": "AGENT_LOG", "message": {"agent": "Spatial", "msg": "Commanding cam_2 to wake between 8.5s and 15.5s."}},
+    {"topic": "AGENT_LOG", "message": {"agent": "Edge-cam_2", "msg": "Waking up heavy ReID for time window 8.5 - 15.5s"}},
+    {"topic": "AGENT_LOG", "message": {"agent": "Spatial", "msg": "Handoff successful to cam_2 at 14.1s."}},
+    {"topic": "AGENT_LOG", "message": {"agent": "Spatial", "msg": "Commanding cam_3 to wake between 23.1s and 35.1s."}},
+    {"topic": "AGENT_LOG", "message": {"agent": "Edge-cam_3", "msg": "Waking up heavy ReID for time window 23.1 - 35.1s"}},
+    {"topic": "AGENT_LOG", "message": {"agent": "Spatial", "msg": "Handoff successful to cam_3 at 28.5s."}},
+    {"topic": "AGENT_LOG", "message": {"agent": "CryptoAudit", "msg": "Anchored to blockchain. Tx: 0x98f82a912..."}}
+  ]
+}

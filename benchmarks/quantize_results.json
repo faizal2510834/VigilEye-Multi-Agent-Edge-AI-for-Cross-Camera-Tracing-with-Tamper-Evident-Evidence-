@@ -1,0 +1,16 @@
+{
+  "YOLOv8n": {
+    "FP32": {
+      "Latency_ms": 43.36,
+      "FPS": 23.07,
+      "RAM_MB": 517.84,
+      "Size_MB": 12.26
+    },
+    "INT8": {
+      "Latency_ms": 63.96,
+      "FPS": 15.64,
+      "RAM_MB": 502.05,
+      "Size_MB": 3.34
+    }
+  }
+}

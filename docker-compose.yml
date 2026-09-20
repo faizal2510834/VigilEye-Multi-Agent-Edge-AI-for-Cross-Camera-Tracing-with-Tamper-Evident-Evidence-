@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+      - CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+      - RPC_URL=http://hardhat:8545
+    volumes:
+      - ./data:/app/data
+      - ./benchmarks:/app/benchmarks
+    depends_on:
+      - hardhat
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+
+  hardhat:
+    image: node:18-alpine
+    working_dir: /app/contracts
+    volumes:
+      - ./contracts:/app/contracts
+    command: >
+      sh -c "npm install && npx hardhat node --hostname 0.0.0.0"
+    ports:
+      - "8545:8545"
