@@ -20,7 +20,9 @@ coverage/
 
 # Hardhat
 contracts/cache/
-contracts/artifacts/
+contracts/typechain-types/
+# Let artifacts be committed
+!contracts/artifacts/
 
 # Python cache
 .pytest_cache/

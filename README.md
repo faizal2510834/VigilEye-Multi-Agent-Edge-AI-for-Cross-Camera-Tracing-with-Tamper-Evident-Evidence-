@@ -82,6 +82,7 @@ If you want to run the full FastAPI backend + Hardhat network tests:
 ```bash
 make setup       # Install pip and npm dependencies
 make chain       # Start the local Hardhat node (run this in a separate terminal first!)
+make deploy      # Deploy the Smart Contract to the local node
 make smoke       # Run the backend pytest smoke test
 make tamper-test # Demonstrate the cryptographic Merkle verification failing on altered data
 make benchmark   # Output the metrics comparing brute force vs handoffs

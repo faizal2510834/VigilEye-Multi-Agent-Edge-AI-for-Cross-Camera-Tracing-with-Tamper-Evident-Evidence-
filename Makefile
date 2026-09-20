@@ -13,9 +13,13 @@ chain:
 	@echo "Starting Hardhat local node... (Leave this terminal running)"
 	cd contracts && npx hardhat node
 
+deploy:
+	@echo "Deploying contract to local node..."
+	cd contracts && npx hardhat run scripts/deploy.ts --network localhost
+
 demo:
-	@echo "Running static Next.js demo..."
-	cd frontend && npm start
+	@echo "Building and running static Next.js demo..."
+	cd frontend && npm run build && npm start
 
 smoke:
 	@echo "Running smoke test on precomputed data..."
