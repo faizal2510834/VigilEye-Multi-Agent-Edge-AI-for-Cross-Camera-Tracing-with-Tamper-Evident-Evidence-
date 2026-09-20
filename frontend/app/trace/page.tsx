@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { fetchQuery, fetchTrace } from '../../lib/api';
 
 export default function TracePage() {
@@ -11,6 +11,17 @@ export default function TracePage() {
   const [parsed, setParsed] = useState<any>(null);
   const [traceResult, setTraceResult] = useState<any>(null);
   const [error, setError] = useState('');
+  
+  const [tracks, setTracks] = useState<any[]>([]);
+  const [selectedTrack, setSelectedTrack] = useState<any>(null);
+
+  useEffect(() => {
+    // Load track gallery
+    fetch('http://localhost:8000/api/tracks')
+      .then(r => r.json())
+      .then(d => setTracks(d.tracks || []))
+      .catch(e => console.error(e));
+  }, []);
 
   const handleTrace = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,16 +32,31 @@ export default function TracePage() {
     setError('');
     setLoading(true);
     setTraceResult(null);
+    setParsed(null);
 
     try {
-      // 1. Parse intent
-      const qRes = await fetchQuery(query, justification);
-      setParsed(qRes.parsed);
-      
-      // 2. Perform trace using a mock embedding for now (since UI doesn't have it)
-      // We pass query_embedding as a dummy 512 array to trigger search
-      const dummyEmbedding = Array(512).fill(0.1); 
-      const tRes = await fetchTrace(dummyEmbedding, 'cam_1', mode);
+      let tRes;
+      if (selectedTrack) {
+        // Tracing a selected track directly
+        const res = await fetch('http://localhost:8000/api/trace', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+             track_id: selectedTrack.track_id, 
+             start_camera: selectedTrack.camera_id, 
+             mode 
+          })
+        });
+        if (!res.ok) throw new Error('API Error');
+        tRes = await res.json();
+      } else {
+        // Text-based query tracing
+        const qRes = await fetchQuery(query, justification);
+        setParsed(qRes.parsed);
+        const qEmb = qRes.query_embedding;
+        if (!qEmb) throw new Error("No query embedding returned from Intent parser");
+        tRes = await fetchTrace(qEmb, 'cam_1', mode);
+      }
       setTraceResult(tRes);
     } catch (err: any) {
       setError(err.message || 'Error occurred');
@@ -45,11 +71,39 @@ export default function TracePage() {
         <h2>Target Trace</h2>
         <form onSubmit={handleTrace} style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '20px' }}>
           <div>
+            <label style={{ display: 'block', marginBottom: '5px' }}>Track Selection (Gallery)</label>
+            <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', padding: '10px', border: '1px solid var(--border)', borderRadius: '4px' }}>
+              {tracks.map((t, i) => (
+                <div 
+                  key={i} 
+                  onClick={() => { setSelectedTrack(t); setQuery(`Selected Track: ${t.track_id}`); }}
+                  style={{ 
+                    padding: '10px', 
+                    cursor: 'pointer',
+                    border: selectedTrack?.track_id === t.track_id ? '2px solid var(--accent)' : '1px solid var(--border)',
+                    backgroundColor: 'rgba(255,255,255,0.02)',
+                    borderRadius: '4px',
+                    minWidth: '100px',
+                    textAlign: 'center'
+                  }}
+                >
+                  <div style={{ fontSize: '12px' }}>{t.track_id}</div>
+                  <div style={{ fontSize: '10px', color: 'var(--text-secondary)' }}>{t.dominant_color}</div>
+                </div>
+              ))}
+              {tracks.length === 0 && <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Loading tracks...</div>}
+            </div>
+            <div style={{ marginTop: '5px', fontSize: '12px', color: 'var(--text-secondary)' }}>
+               Click a track above to select it, or clear the selection to type a text query.
+               {selectedTrack && <button type="button" onClick={() => { setSelectedTrack(null); setQuery(''); }} style={{ marginLeft: '10px', padding: '2px 8px', fontSize: '10px' }}>Clear Selection</button>}
+            </div>
+          </div>
+          <div>
             <label style={{ display: 'block', marginBottom: '5px' }}>Natural Language Query</label>
             <input 
               type="text" 
               value={query} 
-              onChange={(e) => setQuery(e.target.value)} 
+              onChange={(e) => { setQuery(e.target.value); setSelectedTrack(null); }} 
               placeholder="e.g. Find the blue shirt guy near gate 2" 
               required
             />
@@ -93,7 +147,6 @@ export default function TracePage() {
           <div className="card">
             <h3>Camera Graph & Trail</h3>
             <div style={{ height: '300px', border: '1px solid var(--border)', marginTop: '15px', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#000' }}>
-               {/* Simple visualization of camera hops */}
                <div style={{ display: 'flex', gap: '20px', overflowX: 'auto', padding: '20px' }}>
                  {traceResult.trail.map((t: any, i: number) => (
                    <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
