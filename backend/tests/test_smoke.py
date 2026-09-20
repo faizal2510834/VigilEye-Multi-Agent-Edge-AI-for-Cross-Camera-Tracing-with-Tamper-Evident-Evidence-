@@ -24,6 +24,16 @@ def test_smoke_trace_and_evidence():
         print(f"Evidence Root: {evidence_res['merkle_root']}")
         print(f"Simulated Tx Hash: {evidence_res['tx_hash']}")
         
+        import json
+        import os
+        evidence_bundle = {
+            "trail": trail,
+            "merkle_root": evidence_res["merkle_root"]
+        }
+        evidence_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'evidence.json'))
+        with open(evidence_path, "w") as f:
+            json.dump(evidence_bundle, f, indent=2)
+        
         # 3. Audit Log
         await crypto_agent.log_query("smoke_admin", "Smoke testing", "Find target")
         assert crypto_agent.verify_chain() == True
