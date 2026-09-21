@@ -44,9 +44,14 @@
       "timestamp": 15.75,
       "similarity": 0.3292
     },
-    "ho_top": null,
-    "agrees": false,
-    "category": "b_inside_window_but_different_score_or_threshold"
+    "ho_top": {
+      "track_id": "cam_1_4_late",
+      "camera_id": "cam_1",
+      "timestamp": 15.75,
+      "similarity": 0.3292
+    },
+    "agrees": true,
+    "category": "agreed"
   },
   {
     "query_track": "cam_1_6_early",
@@ -75,9 +80,14 @@
       "timestamp": 15.833333333333334,
       "similarity": 0.4891
     },
-    "ho_top": null,
-    "agrees": false,
-    "category": "b_inside_window_but_different_score_or_threshold"
+    "ho_top": {
+      "track_id": "cam_1_6_late",
+      "camera_id": "cam_1",
+      "timestamp": 15.833333333333334,
+      "similarity": 0.4891
+    },
+    "agrees": true,
+    "category": "agreed"
   },
   {
     "query_track": "cam_2_14_early",
@@ -142,9 +152,14 @@
       "timestamp": 30.916666666666668,
       "similarity": 0.4723
     },
-    "ho_top": null,
-    "agrees": false,
-    "category": "b_inside_window_but_different_score_or_threshold"
+    "ho_top": {
+      "track_id": "cam_2_15_late",
+      "camera_id": "cam_2",
+      "timestamp": 30.916666666666668,
+      "similarity": 0.4723
+    },
+    "agrees": true,
+    "category": "agreed"
   },
   {
     "query_track": "cam_2_18_early",
@@ -191,12 +206,7 @@
       "timestamp": 28.25,
       "similarity": 0.5495
     },
-    "ho_top": {
-      "track_id": "cam_2_15_late",
-      "camera_id": "cam_2",
-      "timestamp": 30.916666666666668,
-      "similarity": 0.4386
-    },
+    "ho_top": null,
     "agrees": false,
     "category": "c_no_real_match_bf_picked_noise"
   }

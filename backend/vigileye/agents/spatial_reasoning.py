@@ -62,24 +62,20 @@ class SpatialReasoningAgent:
         
         # Initial search in start camera to find the baseline track
         cam_tracks = get_tracks_by_camera(start_camera)
-        matches = search_embeddings(query_embedding, cam_tracks, threshold=REID_THRESHOLD, query_track_id=query_track_id)
-        self.metrics["handoff"]["inference_calls"] += len(cam_tracks)
-        self.metrics["handoff"]["comparisons"] += len(cam_tracks)
         
         current_camera = start_camera
         current_exit_time = start_time
         
-        if matches:
-            best = matches[0]["track"]
+        # Find exactly the query track to start the trail
+        best = next((t for t in cam_tracks if t.get("track_id") == query_track_id), None)
+        if best:
             current_exit_time = best["first_ts"]
-            sim = matches[0]["similarity"]
-            conf = sim * 100
             trail.append({
                 "camera_id": current_camera,
                 "track_id": best["track_id"],
                 "timestamp": current_exit_time,
-                "confidence": conf,
-                "explanation": f"Initial match: similarity {sim:.2f}. Confidence {conf:.1f}%",
+                "confidence": 100.0,
+                "explanation": "Initial query track",
                 "crop_path": best.get("crop_path")
             })
 

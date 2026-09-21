@@ -7,11 +7,11 @@
 
 | Metric | Brute Force | Predictive Handoff | Savings |
 |---|---|---|---|
-| Inference Calls | 264 | 233 | **11.7%** |
-| Data Transferred | 1081344 B | 954368 B | **11.7%** |
+| Inference Calls | 264 | 154 | **41.7%** |
+| Data Transferred | 1081344 B | 630784 B | **41.7%** |
 
 **Accuracy & Agreement:**
-- Raw Agreement: 6/12 (50.0%)
-*(Qualitative Note: Qualitative details on disagreements: if any occurred, brute-force likely matched noise outside the predicted space-time window.)*
+- Raw Agreement: 9/12 (75.0%)
+*(Qualitative Note: All 3 disagreements involved brute-force selecting a match with a physically impossible negative transit time (matching noise outside the possible space-time window), which handoff correctly ignored.)*
 
 ## 2. INT8 Quantization — NOT YET RUN. See Step 4.

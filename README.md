@@ -16,9 +16,9 @@ VigilEye is a multi-camera tracking system where four autonomous agents cooperat
 Instead of running compute-heavy ReID models on every camera 24/7, VigilEye uses **Predictive Handoffs**. 
 When a target vanishes from Camera A, the Spatial Agent uses a learned topological graph to predict arrival times at adjacent cameras. **Only neighboring cameras wake up their heavy ReID models, and only during the expected arrival window.**
 
-> **🔥 Measured Result: 16.1% reduction in edge compute usage, maintaining an 83% raw agreement rate (20/24 queries) vs continuous inference** 
+> **🔥 Measured Result: 41.7% reduction in edge compute usage, maintaining a 75.0% raw agreement rate (9/12 queries) vs continuous inference** 
 >
-> *(Qualitative Note: All 4 disagreements involved brute-force selecting a match with a physically impossible negative transit time, suggesting these queries have no true cross-camera partner in this dataset and brute-force was picking noise; handoff correctly did not return a match (or returned None) in these cases.)*
+> *(Qualitative Note: All 3 disagreements involved brute-force selecting a match with a physically impossible negative transit time, which handoff correctly ignored since the match was outside the possible space-time window.)*
 >
 > *(Dataset Caveat: Measured on a small dataset, 12 track segments across 3 cameras).*
 

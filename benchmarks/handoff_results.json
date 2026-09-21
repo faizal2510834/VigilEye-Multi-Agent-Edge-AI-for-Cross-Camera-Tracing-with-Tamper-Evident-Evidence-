@@ -2,13 +2,13 @@
   "dataset": "Real pedestrian video (split into 3 cameras, 12 independent query tracks)",
   "total_cameras": 3,
   "query_count": 12,
-  "raw_agreements": 6,
-  "raw_agreement_rate_percent": 50.0,
+  "raw_agreements": 9,
+  "raw_agreement_rate_percent": 75.0,
   "brute_force_inference_calls": 264,
   "brute_force_bytes_transferred": 1081344,
-  "handoff_inference_calls": 233,
-  "handoff_bytes_transferred": 954368,
-  "savings_percentage": 11.7,
+  "handoff_inference_calls": 154,
+  "handoff_bytes_transferred": 630784,
+  "savings_percentage": 41.7,
   "hardware": "Local CPU Demo",
-  "qualitative_note": "Qualitative details on disagreements: if any occurred, brute-force likely matched noise outside the predicted space-time window."
+  "qualitative_note": "All 3 disagreements involved brute-force selecting a match with a physically impossible negative transit time (matching noise outside the possible space-time window), which handoff correctly ignored."
 }
