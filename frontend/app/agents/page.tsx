@@ -19,21 +19,40 @@ export default function AgentsPage() {
       return;
     }
 
-    const sse = new EventSource(`${API_URL}/api/agents/ws`);
-    
-    sse.onmessage = (e) => {
-      try {
-        const data = JSON.parse(e.data);
-        setMessages(prev => [...prev, data].slice(-100));
-      } catch (err) {}
-    };
-    
-    sse.onerror = (e) => {
-      console.error("SSE Error", e);
-    };
+    let sse: EventSource | null = null;
+    let cancelled = false;
+
+    // Backfill any agent activity that already happened before this page was
+    // opened, then open the live stream for anything new.
+    fetch(`${API_URL}/api/agents/feed`)
+      .then(res => res.json())
+      .then(data => {
+        if (cancelled) return;
+        if (Array.isArray(data?.history)) {
+          setMessages(data.history.slice(-100));
+        }
+      })
+      .catch(console.error)
+      .finally(() => {
+        if (cancelled) return;
+
+        sse = new EventSource(`${API_URL}/api/agents/ws`);
+
+        sse.onmessage = (e) => {
+          try {
+            const data = JSON.parse(e.data);
+            setMessages(prev => [...prev, data].slice(-100));
+          } catch (err) {}
+        };
+
+        sse.onerror = (e) => {
+          console.error("SSE Error", e);
+        };
+      });
 
     return () => {
-      sse.close();
+      cancelled = true;
+      sse?.close();
     };
   }, []);
 
